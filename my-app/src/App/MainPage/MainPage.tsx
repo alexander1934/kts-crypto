@@ -1,37 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "@components/Button/Button";
-import { Card } from "@components/Card/Card";
-import { Input } from "@components/Input/Input";
-import axios from "axios";
+import { useEffect } from "react";
+import Button from "@components/Button";
+import Card from "@components/Card";
+import Input from "@components/Input";
+import { LoaderSize } from "@components/Loader";
+import Loader from "@components/Loader";
+import MultiDropdown from "@components/MultiDropdown";
+import MainPageStore from "@store/MainPageStore";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
-import { Loader, LoaderSize } from "./../../components/Loader/Loader";
-import { MultiDropdown } from "./../../components/MultiDropdown/MultiDropdown";
 import style from "./MainPage.module.scss";
 import searchIcon from "../../assets/images/searchIcon.svg";
 
+const store = new MainPageStore();
+
 const MainPage = () => {
-  let [coins, setCoins] = useState([
-    {
-      id: "",
-      image: "",
-      name: "",
-      symbol: "",
-      current_price: "",
-      price_change_percentage_24h: "",
-    },
-  ]);
-
   useEffect(() => {
-    const fetch = async () => {
-      let result = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
-      );
-
-      setCoins(result.data);
-    };
-
-    fetch();
+    store.fetch();
   }, []);
+
   return (
     <div className={style.main}>
       <div className={style.main__wrapper}>
@@ -47,17 +33,17 @@ const MainPage = () => {
         <div className={style.main__chooseBlock}>
           <p className={style.main__p}>Coins</p>
           <MultiDropdown
-            options={[]}
-            value={[]}
-            onChange={() => {
-              return "Hello";
-            }}
+            options={[
+              { key: "fav", value: "Favourite" },
+              { key: "up", value: "Rising" },
+              { key: "down", value: "Falling" },
+            ]}
           />
         </div>
-        {coins.length > 1 ? (
+        {store.coins ? (
           <div className={style.main__coinsBlock}>
-            {coins.map((coin) => (
-              <Link to={`/coin/${coin.id}`}>
+            {store.coins!.map((coin) => (
+              <Link to={`/coin/${coin.id}`} key={coin.id}>
                 <Card
                   key={coin.id}
                   image={coin.image}
@@ -79,4 +65,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default observer(MainPage);

@@ -15,10 +15,10 @@ export type CardProps = {
   difference: string;
 };
 
-export const Card: React.FC<CardProps> = ({ ...props }) => {
-  let classs = style.card__difference;
+const Card: React.FC<CardProps> = ({ ...props }) => {
+  let classes = style.card__difference;
   if (Number(props.difference) < 0) {
-    classs += ` ${style.red}`;
+    classes += ` ${style.red}`;
   }
   return (
     <div className={style.card} onClick={props.onClick}>
@@ -37,8 +37,9 @@ export const Card: React.FC<CardProps> = ({ ...props }) => {
       </div>
       <div className={style.card__right}>
         ${props.content}
-        <div className={classs}>{props.difference}%</div>
+        <div className={classes}>{props.difference}%</div>
       </div>
     </div>
   );
 };
+export default React.memo(Card);
