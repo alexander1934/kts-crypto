@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "@components/Button";
 import Card from "@components/Card";
 import Input from "@components/Input";
@@ -13,11 +13,29 @@ import searchIcon from "../../assets/images/searchIcon.svg";
 
 const store = new MainPageStore();
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   useEffect(() => {
     store.fetch();
   }, []);
 
+  useEffect(() => {
+    document.addEventListener("scroll", scrollHandler);
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
+    };
+  });
+
+  let scrollHandler = (event: any) => {
+    if (
+      event.target.documentElement.scrollHeight -
+        (event.target.documentElement.scrollTop + window.innerHeight) <
+      100
+    ) {
+      console.log("это низ");
+      store.bottomLoading();
+      store.isFetching = true;
+    }
+  };
   return (
     <div className={style.main}>
       <div className={style.main__wrapper}>
@@ -25,9 +43,16 @@ const MainPage = () => {
           <Input
             className={style.main__input}
             placeholder="Search Cryptocurrency"
+            value={store.input}
+            onChange={store.inputHandler}
           />
           <Button>
-            <img className={style.main__searchButton} src={searchIcon} alt="" />
+            <img
+              className={style.main__searchButton}
+              src={searchIcon}
+              alt=""
+              onClick={store.searchCoin}
+            />
           </Button>
         </div>
         <div className={style.main__chooseBlock}>

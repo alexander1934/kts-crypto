@@ -22,8 +22,9 @@ interface ICoinInfo {
 class CoinPageStore {
   constructor() {
     makeObservable(this, {
-      info: observable,
+      info: observable.ref,
       fetch: action,
+      destroy: action,
     });
   }
 
@@ -34,6 +35,10 @@ class CoinPageStore {
       `https://api.coingecko.com/api/v3/coins/${id}`
     );
     this.info = result.data;
+  };
+
+  destroy = (e: React.MouseEventHandler<HTMLButtonElement>) => {
+    this.info = null;
   };
 }
 

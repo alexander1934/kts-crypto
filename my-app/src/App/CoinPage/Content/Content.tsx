@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import style from "./Content.module.scss";
 import image from "../../../assets/images/backbutton.svg";
@@ -80,4 +81,4 @@ const Content: React.FC<ContentProps> = ({ ...props }) => {
   );
 };
 
-export default Content;
+export default observer(Content);
