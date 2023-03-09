@@ -1,0 +1,46 @@
+.main {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main__wrapper {
+  width: 100%;
+}
+
+.main__searchBlock {
+  display: flex;
+  margin: 10px;
+}
+
+.main__input {
+  margin-right: 13px;
+}
+
+.main__chooseBlock {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.main__p {
+  font-family: "Circular Std";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 23px;
+  margin-right: 10px;
+}
+
+.main__coinsBlock {
+  margin: 15px;
+}
+
+.main__loader {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}

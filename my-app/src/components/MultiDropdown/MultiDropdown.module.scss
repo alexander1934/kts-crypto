@@ -1,0 +1,44 @@
+.selected_value {
+  width: 226px;
+  height: 24px;
+  background: #ffffff;
+  border: 0.5px solid #f0f0f0;
+  border-radius: 12px;
+  font-family: 'Circular Std';
+  font-style: normal;
+  font-weight: 450;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #6C757D;
+  padding: 0 8px;
+}
+
+.disabled .selected-value {
+    background: #f7f7f7;
+}
+
+.option {
+  font-family: 'Circular Std';
+  font-style: normal;
+  font-weight: 450;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 0.5px solid #f0f0f0;
+  padding-left: 8px;
+  height: 24px;
+}
+
+.choose_list {
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    padding: 8px;
+    width: 226px;
+    background-color: #ffffff;
+    position: absolute;
+}

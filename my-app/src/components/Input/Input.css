@@ -1,0 +1,25 @@
+.input {
+    display: block;
+    padding: 12px;
+    border: 1px solid #DFE2E4;
+    border-radius: 4px;
+    width: 100%;
+    min-width: 100px;
+}
+
+.input:focus {
+  border: 1px solid #DFE2E4;
+}
+
+.input:disabled {
+    background-color: #FFFFFF;
+}
+
+.input::placeholder {
+  font-family: 'Circular Std';
+  font-style: normal;
+  font-weight: 450;
+  font-size: 12px;
+  line-height: 15px;
+  color: #dfe2e4;
+}

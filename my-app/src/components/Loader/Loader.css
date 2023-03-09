@@ -1,0 +1,40 @@
+.loader {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50%;
+    position: relative;
+    animation: spin 1s linear 0s infinite;
+    display: inline-block;
+    margin-right: 8px;
+    rotate: 130deg;
+  }
+  
+  @keyframes spin {
+      from {transform:rotate(0deg);}
+      to {transform:rotate(360deg);}
+  }
+  
+  .l {
+    width: 47px;
+    height: 47px;
+    border: 6px solid #6c757d;
+    border-top-color:transparent;
+  }
+
+  .m {
+    width: 30px;
+    height: 30px;
+    border: 5px solid #6c757d;
+    border-top-color:transparent;
+  }
+  
+  .s {
+    width: 14px;
+    height: 14px;
+    border: 3px solid #6c757d;
+    border-top-color:transparent;
+  }
+
+  .WithLoader {
+    display: block;
+    margin: 0;
+  }
