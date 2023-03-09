@@ -12,7 +12,7 @@ export type Option = {
 /** Пропсы, которые принимает компонент Dropdown */
 export type MultiDropdownProps = {
   /** Массив возможных вариантов для выбора */
-  options?: Option[];
+  options: Option[];
   /** Текущие выбранные значения поля, может быть пустым */
   value?: Option[];
   /** Callback, вызываемый при выборе варианта */
@@ -22,17 +22,18 @@ export type MultiDropdownProps = {
   /** Преобразовать выбранные значения в строку. Отображается в дропдауне в качестве выбранного значения */
 };
 
-export const MultiDropdown: React.FC<MultiDropdownProps> = ({
+const MultiDropdown: React.FC<MultiDropdownProps> = ({
   options,
   value,
   onChange,
   disabled = false,
 }) => {
-  let [isOpen, openToggler] = useState(false);
+  const [isOpen, openToggler] = useState(false);
 
-  let openHandler = () => {
-    openToggler((prevValue) => !prevValue);
-  };
+  const openHandler = React.useCallback(
+    () => openToggler((prevValue) => !prevValue),
+    []
+  );
 
   return (
     <div>
@@ -43,13 +44,17 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = ({
       {isOpen && (
         <div className={style.choose_list}>
           <ul>
-            <li className={style.option}>ger43tg</li>
-            <li className={style.option}>h35h5h</li>
-            <li className={style.option}>rgherherh</li>
+            {options.map((option) => {
+              return (
+                <li key={option.key} className={style.option}>
+                  {option.value}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
     </div>
   );
 };
-export default MultiDropdown;
+export default React.memo(MultiDropdown);
