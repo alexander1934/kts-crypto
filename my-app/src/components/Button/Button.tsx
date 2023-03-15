@@ -1,7 +1,6 @@
 import React from "react";
 import { LoaderSize } from "@components/Loader";
 import Loader from "@components/Loader";
-import cn from "classnames";
 import s from "./Button.module.scss";
 
 export type ButtonProps = React.PropsWithChildren<{
@@ -15,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ className = "", ...props }) => {
   return (
     <button
       data-testid="button"
-      className={cn(s["button"])}
+      className={s.button}
       disabled={props.disabled || props.loading}
       {...props}
     >

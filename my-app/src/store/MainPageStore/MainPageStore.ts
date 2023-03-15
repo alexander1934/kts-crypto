@@ -31,7 +31,7 @@ class MainPageStore {
 
   fetch = async (page: number = 1) => {
     let result = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=20&page=${page}`
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=100&page=${page}`
     );
 
     this.coins = result.data;

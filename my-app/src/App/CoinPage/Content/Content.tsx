@@ -1,21 +1,22 @@
+import React from "react";
+import image from "@assets/images/backbutton.svg";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import style from "./Content.module.scss";
-import image from "../../../assets/images/backbutton.svg";
 
 export type ContentProps = {
+  circulatingSupply: number;
   coinImage: string;
-  name: string;
-  symbol: string;
   currentPrice: number;
+  description: string;
+  dilutedValuation: number;
+  marketCap: number;
+  maxSupply: number;
+  name: string;
   priceCurrency: number;
   pricePercentage: number;
-  marketCap: number;
-  dilutedValuation: number;
-  circulatingSupply: number;
+  symbol: string;
   totalSupply: number;
-  maxSupply: number;
-  description: string;
 };
 
 const Content: React.FC<ContentProps> = ({ ...props }) => {
@@ -71,7 +72,7 @@ const Content: React.FC<ContentProps> = ({ ...props }) => {
       <div>
         <div className={style.description}>Description</div>
         <p
-          className={style.description__text}
+          className={style.descriptionText}
           dangerouslySetInnerHTML={{
             __html: description!,
           }}

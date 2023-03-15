@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@components/Button";
 import Card from "@components/Card";
 import Input from "@components/Input";
@@ -23,7 +23,7 @@ const MainPage: React.FC = () => {
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
-  });
+  }, []);
 
   let scrollHandler = (event: any) => {
     if (
@@ -31,7 +31,6 @@ const MainPage: React.FC = () => {
         (event.target.documentElement.scrollTop + window.innerHeight) <
       100
     ) {
-      console.log("это низ");
       store.bottomLoading();
       store.isFetching = true;
     }

@@ -57,4 +57,4 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     </div>
   );
 };
-export default React.memo(MultiDropdown);
+export default MultiDropdown;

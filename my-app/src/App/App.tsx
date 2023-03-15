@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import CoinPage from "./CoinPage/CoinPage";
-import MainPage from "./MainPage/MainPage";
+import CoinPage from "./CoinPage";
+import MainPage from "./MainPage";
 
 function App() {
   return (
