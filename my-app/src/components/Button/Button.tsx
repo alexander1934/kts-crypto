@@ -1,29 +1,20 @@
 import React from "react";
-import "./Button.css";
-import { Loader, LoaderSize } from "./../Loader/Loader";
+import { LoaderSize } from "@components/Loader";
+import Loader from "@components/Loader";
+import s from "./Button.module.scss";
 
 export type ButtonProps = React.PropsWithChildren<{
   loading?: boolean;
-  className?: string;
   children?: React.ReactNode;
   disabled?: boolean;
 }> &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button: React.FC<ButtonProps> = ({ className = "", ...props }) => {
-  let buttonClass = "button";
-  if (props.loading || props.disabled) {
-    buttonClass += " button_disabled";
-  }
-
-  if (className !== "") {
-    buttonClass += ` ${className}`;
-  }
-
+const Button: React.FC<ButtonProps> = ({ className = "", ...props }) => {
   return (
     <button
       data-testid="button"
-      className={buttonClass}
+      className={s.button}
       disabled={props.disabled || props.loading}
       {...props}
     >
@@ -32,3 +23,5 @@ export const Button: React.FC<ButtonProps> = ({ className = "", ...props }) => {
     </button>
   );
 };
+
+export default React.memo(Button);

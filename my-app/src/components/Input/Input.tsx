@@ -1,5 +1,6 @@
 import React from "react";
-import "./Input.css";
+import classNames from "classnames";
+import s from "./Input.module.scss";
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -7,19 +8,21 @@ export type InputProps = Omit<
 > & {
   value?: string;
 
-  onChange?: (value: any) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Input: React.FC<InputProps> = ({ className, ...props }) => {
-  let inputClass = "input";
+const Input: React.FC<InputProps> = ({ className, ...props }) => {
+  let inputClass = classNames(
+    {
+      [s.input]: true,
+      [s.input_disabled]: props.disabled,
+    },
+    className
+  );
 
-  if (props.disabled) {
-    inputClass += " input_disabled";
-  }
-  if (className !== undefined) {
-    inputClass += ` ${className}`;
-  }
   return (
     <input {...props} className={inputClass} type="text" value={props.value} />
   );
 };
+
+export default React.memo(Input);

@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "@components/Button/Button";
-import { Card } from "@components/Card/Card";
-import { Input } from "@components/Input/Input";
-import axios from "axios";
+import React, { useEffect } from "react";
+import Button from "@components/Button";
+import Card from "@components/Card";
+import Input from "@components/Input";
+import { LoaderSize } from "@components/Loader";
+import Loader from "@components/Loader";
+import MultiDropdown from "@components/MultiDropdown";
+import MainPageStore from "@store/MainPageStore";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
-import { Loader, LoaderSize } from "./../../components/Loader/Loader";
-import { MultiDropdown } from "./../../components/MultiDropdown/MultiDropdown";
 import style from "./MainPage.module.scss";
 import searchIcon from "../../assets/images/searchIcon.svg";
 
-const MainPage = () => {
-  let [coins, setCoins] = useState([
-    {
-      id: "",
-      image: "",
-      name: "",
-      symbol: "",
-      current_price: "",
-      price_change_percentage_24h: "",
-    },
-  ]);
+const store = new MainPageStore();
+
+const MainPage: React.FC = () => {
+  useEffect(() => {
+    store.fetch();
+  }, []);
 
   useEffect(() => {
-    const fetch = async () => {
-      let result = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
-      );
-
-      setCoins(result.data);
+    document.addEventListener("scroll", scrollHandler);
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
     };
-
-    fetch();
   }, []);
+
+  let scrollHandler = (event: any) => {
+    if (
+      event.target.documentElement.scrollHeight -
+        (event.target.documentElement.scrollTop + window.innerHeight) <
+      100
+    ) {
+      store.bottomLoading();
+      store.isFetching = true;
+    }
+  };
   return (
     <div className={style.main}>
       <div className={style.main__wrapper}>
@@ -39,25 +42,32 @@ const MainPage = () => {
           <Input
             className={style.main__input}
             placeholder="Search Cryptocurrency"
+            value={store.input}
+            onChange={store.inputHandler}
           />
           <Button>
-            <img className={style.main__searchButton} src={searchIcon} alt="" />
+            <img
+              className={style.main__searchButton}
+              src={searchIcon}
+              alt=""
+              onClick={store.searchCoin}
+            />
           </Button>
         </div>
         <div className={style.main__chooseBlock}>
           <p className={style.main__p}>Coins</p>
           <MultiDropdown
-            options={[]}
-            value={[]}
-            onChange={() => {
-              return "Hello";
-            }}
+            options={[
+              { key: "fav", value: "Favourite" },
+              { key: "up", value: "Rising" },
+              { key: "down", value: "Falling" },
+            ]}
           />
         </div>
-        {coins.length > 1 ? (
+        {store.coins ? (
           <div className={style.main__coinsBlock}>
-            {coins.map((coin) => (
-              <Link to={`/coin/${coin.id}`}>
+            {store.coins!.map((coin) => (
+              <Link to={`/coin/${coin.id}`} key={coin.id}>
                 <Card
                   key={coin.id}
                   image={coin.image}
@@ -79,4 +89,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default observer(MainPage);
